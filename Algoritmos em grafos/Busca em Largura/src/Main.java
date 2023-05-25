@@ -15,76 +15,41 @@ public class Main
         }
     }
     public static void main (String[]args){
-
-        Vertice p = new Vertice ("p");
-        Vertice q = new Vertice ("q");
-        Vertice r = new Vertice ("r");
-        Vertice s = new Vertice ("s");
-        Vertice t = new Vertice ("t");
-        Vertice u = new Vertice ("u");
-        /*Vertice v = new Vertice ("v");
-        Vertice w = new Vertice ("w");
-        Vertice x = new Vertice ("x");
-        Vertice y = new Vertice ("y");
-        Vertice z = new Vertice ("z");
-        p.adjacentes.add(q);
-        p.adjacentes.add(r);
-        p.adjacentes.add(s);
-        q.adjacentes.add(p);
-        r.adjacentes.add(p);
-        s.adjacentes.add(p);
-        s.adjacentes.add(t);
-        s.adjacentes.add(u);
-        t.adjacentes.add(s);
-        t.adjacentes.add(v);
-        u.adjacentes.add(p);
-        u.adjacentes.add(w);
-        v.adjacentes.add(t);
-        v.adjacentes.add(x);
-        w.adjacentes.add(u);
-        w.adjacentes.add(y);
-        x.adjacentes.add(v);
-        x.adjacentes.add(z);
-        y.adjacentes.add(w);
-        y.adjacentes.add(z);
-        z.adjacentes.add(x);
-        z.adjacentes.add(y);
+        Scanner input = new Scanner(System.in);
         List<Vertice> grafo = new ArrayList<>();
-        grafo.add(p);
-        grafo.add(q);
-        grafo.add(r);
-        grafo.add(s);
-        grafo.add(t);
-        grafo.add(u);
-        grafo.add(v);
-        grafo.add(w);
-        grafo.add(x);
-        grafo.add(y);
-        grafo.add(z);*/
-        p.adjacentes.add(r);
-        p.adjacentes.add(s);
-        q.adjacentes.add(s);
-        q.adjacentes.add(r);
-        q.adjacentes.add(t);
-        r.adjacentes.add(p);
-        r.adjacentes.add(q);
-        s.adjacentes.add(p);
-        s.adjacentes.add(q);
-        s.adjacentes.add(u);
-        t.adjacentes.add(q);
-        u.adjacentes.add(s);
-        List<Vertice> grafo = new ArrayList<>();
-        grafo.add(p);
-        grafo.add(q);
-        grafo.add(r);
-        grafo.add(s);
-        grafo.add(t);
-        grafo.add(u);
-        //bfs(grafo, s);
-        if (bfsParaCiclo(grafo, 6))
-            System.out.println("Contém ciclo");
-        else
-            System.out.println("Não contém ciclo");
+        Vertice v;
+        
+        for(int i = 97; i < 106; i++)
+            grafo.add(new Vertice(Character.toString(i)));
+            
+        for(int i = 0; i < grafo.size(); i++){
+            v = grafo.get(i);
+            System.out.println(v.nome);
+            String nome = "";
+            while(!nome.equals("pronto")){
+                nome = input.next();
+                for(int j = 0; j < grafo.size(); j++)
+                    if(grafo.get(j).nome.equals(nome)){
+                        v.adjacentes.add(grafo.get(j));
+                        break;
+                    }
+            }
+        }
+        
+        for(int h = 0; h < grafo.size(); h++){
+            System.out.print("\n" + grafo.get(h).nome + ": ");
+            grafo.get(h).adjacentes.forEach(e -> {
+                System.out.print(e.nome + ", ");
+            });
+        }
+        
+        for(int x = 0; x < grafo.size(); x++){
+            if (bfsParaCiclo(grafo, grafo.get(x)))
+                System.out.println("Contém ciclo");
+            else
+                System.out.println("Não contém ciclo");
+        }
+        
     }
     static void bfs(List<Vertice> grafo, Vertice s){
         for(Vertice u : grafo)
