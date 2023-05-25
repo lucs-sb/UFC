@@ -3,74 +3,68 @@ package entity;
 import java.util.Random;
 
 public class Purchase {
-    private int Id;
-    private String Description;
-    private double Value;
-    private int SocialSecurity;
-    private Purchase Left;
-    private Purchase Right;
+    private long id;
+    private String description;
+    private double value;
+    private long socialSecurity;
+    private Purchase left;
+    private Purchase right;
 
-    public Purchase(String description, double value, int socialSecurity) {
-        Description = description;
-        Value = value;
-        SocialSecurity = socialSecurity;
-    }
-
-    public Purchase(String description, double value, int socialSecurity, Purchase left, Purchase right) {
+    public Purchase(String description, double value, long socialSecurity, Purchase left, Purchase right) {
         Random random = new Random();
-        Id = random.nextInt(1000);
-        Description = description;
-        Value = value;
-        SocialSecurity = socialSecurity;
-        Left = left;
-        Right = right;
+        this.id = random.nextInt(1000);
+        this.description = description;
+        this.value = value;
+        this.socialSecurity = socialSecurity;
+        this.left = left;
+        this.right = right;
     }
 
     public String getDescription() {
-        return Description;
+        return this.description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public double getValue() {
-        return Value;
+        return this.value;
     }
 
     public void setValue(double value) {
-        Value = value;
+        this.value = value;
     }
 
-    public int getSocialSecurity() {
-        return SocialSecurity;
+    public long getSocialSecurity() {
+        return this.socialSecurity;
     }
 
-    public void setSocialSecurity(int socialSecurity) {
-        SocialSecurity = socialSecurity;
+    public void setSocialSecurity(long socialSecurity) {
+        this.socialSecurity = socialSecurity;
     }
 
     public Purchase getLeft() {
-        return Left;
+        return this.left;
     }
 
     public void setLeft(Purchase left) {
-        this.Left = left;
+        this.left = left;
     }
 
     public Purchase getRight() {
-        return Right;
+        return this.right;
     }
 
     public void setRight(Purchase right) {
-        this.Right = right;
+        this.right = right;
     }
 
-    public int getId() {
-        return Id;
+    public long getId() {
+        return this.id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 }

@@ -4,42 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private String Name;
-    private int SocialSecurity;
-    private String Address;
-    private List<Integer> Cards = new ArrayList<>();
+    private String name;
+    private long socialSecurity;
+    private String address;
+    private List<Long> cards;
 
-    public User(String name, int socialSecurity, String address) {
-        Name = name;
-        SocialSecurity = socialSecurity;
-        Address = address;
-    }
+    public User(){}
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public int getSocialSecurity() {
-        return SocialSecurity;
+    public long getSocialSecurity() {
+        return this.socialSecurity;
     }
 
-    public void setSocialSecurity(int socialSecurity) {
-        SocialSecurity = socialSecurity;
+    public void setSocialSecurity(long socialSecurity) {
+        this.socialSecurity = socialSecurity;
     }
 
     public String getAddress() {
-        return Address;
+        return this.address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
-    public List<Integer> getCards() {
-        return Cards;
+    public List<Long> getCards() {
+        return this.cards;
+    }
+
+    public void setCards(List<Long> cards) {
+        this.cards = cards;
     }
 }

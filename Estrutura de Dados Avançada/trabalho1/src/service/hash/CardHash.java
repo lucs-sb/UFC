@@ -1,48 +1,78 @@
 package service.hash;
 
 import entity.CreditCard;
+import entity.User;
 
-public class CardHash extends TList{
-    public CreditCard List[] = new CreditCard[MAX];
+public class CardHash extends HashTable {
+    public CreditCard[] list;
 
-    public CardHash(int MAX) {
-        super(MAX);
+    public CardHash(int max) {
+        super(max);
+        list = new CreditCard[this.max];
     }
 
-    public int Hashing(int chave){ return chave % this.MAX; }
-
-    public int DoubleHash(int i){
-        int w = 1 + (i % (this.MAX - 1));
-        return (i + w) % this.MAX;
-    }
-
-    public void Print(){
-        if (this.Size == 0)
-            System.out.println("Não existe cartões cadastrados.");
+    public void print(){
+        if (this.size == 0)
+            System.out.println("\nNão existe cartões cadastrados.");
         else
         {
-            for (int i = 0; i < this.Size-1; i++) {
-                System.out.println("Número do cartão: " + List[i].getNumber());
-                System.out.println("Titular: " + List[i].getCardHolder());
-                System.out.println("Data de vencimento: " + List[i].getExpirationDate() + ", Bandeira: " + List[i].getFlag());
-                System.out.println("CPFs vinculados: : ");
-                List[i].getSocialSecurities().forEach(socialSecurity -> {
-                    System.out.print(socialSecurity + " ");
+            for (int i = 0; i < this.size -1; i++) {
+                System.out.println("\nNúmero do cartão: " + list[i].getNumber());
+                System.out.println("Titular: " + list[i].getCardHolder());
+                System.out.println("Data de vencimento: " + list[i].getExpirationDate() + ", Bandeira: " + list[i].getFlag());
+                System.out.print("CPFs vinculados: ");
+                list[i].getSocialSecurities().forEach(socialSecurity -> {
+                    System.out.print(socialSecurity + "; ");
                 });
             }
         }
     }
 
-    public void AddCreditCard(CreditCard newCreditCard, int socialSecurity){
-        int index = Hashing(newCreditCard.getNumber());
+    public void addCreditCard(CreditCard newCreditCard){
+        int index = hashing(newCreditCard.getNumber());
 
-        while (List[index] != null)
-            index = DoubleHash(index);
+        while (list[index] != null)
+            index = doubleHash(index);
 
-        List[index].setNumber(newCreditCard.getNumber());
-        List[index].setCardHolder(newCreditCard.getCardHolder());
-        List[index].setExpirationDate(newCreditCard.getExpirationDate());
-        List[index].setFlag(newCreditCard.getFlag());
-        List[index].getSocialSecurities().add(socialSecurity);
+        list[index] = newCreditCard;
+
+        this.size++;
+
+        if (calculateOccupancyRate())
+            expandTable();
+    }
+
+    public CreditCard getCreditCardByNumber(long number, User user){
+        int index = hashing(number);
+
+        while (list[index] != null && list[index].getNumber() != number)
+            index = doubleHash(index);
+
+        return list[index] == null && !user.getCards().contains(number) ? null : list[index];
+    }
+
+    public CreditCard getCreditCardByNumber(long number){
+        int index = hashing(number);
+
+        while (list[index] != null && list[index].getNumber() != number)
+            index = doubleHash(index);
+
+        return list[index] == null ? null : list[index];
+    }
+
+    private void expandTable(){
+        CardHash aux = new CardHash(2 * max);
+        for (int i = 0; i < max; i++)
+            if (list[i] != null){
+                int index = aux.hashing(list[i].getNumber());
+
+                while (aux.list[index] != null)
+                    index = aux.doubleHash(index);
+
+                aux.list[index] = list[i];
+            }
+
+        list = aux.list;
+        max = 2 * max;
     }
 }
