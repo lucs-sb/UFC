@@ -135,7 +135,7 @@ public class Main
                     Q.add(v);
                 }
                 else
-                    if (procuraCiclo(u.pai, v.pai)) //procuraCiclo(u.pai, v)
+                    (u.pai != v && procuraCiclo(u.pai, v.pai))
                         return true;
             }
             u.cor = "preto";
@@ -166,7 +166,7 @@ public class Main
                     Q.add(v);
                 }
                 else
-                if (procuraCiclo(u.pai, v.pai)) //procuraCiclo(u.pai, v)
+                (u.pai != v && procuraCiclo(u.pai, v.pai))
                     return true;
             }
             u.cor = "preto";
@@ -176,13 +176,21 @@ public class Main
     }
 
     static boolean procuraCiclo(Vertice u, Vertice v){
-        if (u == null || v == null)
+        
+        if(v == null || u ==null)
             return false;
 
-        if (v.pai != null && u.pai != null && v.pai.nome.equals(u.pai.nome))
+        if (u.pai != null && v.pai != null)
+            return procuraCiclo(u.pai, v.pai);
+        else if(u.pai != null && v.pai == null)
+            return procuraCiclo(u.pai, v);
+        else if(u.pai == null && v.pai != null)
+            return procuraCiclo(u, v.pai);
+        
+        if(u.nome.equals(v.nome))
             return true;
 
-        return procuraCiclo(u.pai, v.pai);
+        return false;
     }
 
     /*static boolean procuraCiclo(Vertice u, Vertice v){
