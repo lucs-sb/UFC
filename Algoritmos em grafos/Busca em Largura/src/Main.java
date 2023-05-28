@@ -2,8 +2,8 @@ import java.util.*;
 public class Main
 {
     public static void main (String[]args){
-        List<Vertice> grafo = gerarGrafoG();
-        //List<Vertice> grafo = gerarGrafoGLinha();
+        List<Vertice> grafo = gerarGrafoSemCiclo();
+        //List<Vertice> grafo = gerarGrafoComCiclo();
         
         for(int i = 0; i < grafo.size(); i++){
             if (bfs(grafo, grafo.get(i)))
@@ -68,66 +68,64 @@ public class Main
         return false;
     }
 
-   public static List<Vertice> gerarGrafoG(){
-        Vertice u = new Vertice("u");
-        Vertice v = new Vertice("v");
-        Vertice w = new Vertice("w");
+   public static List<Vertice> gerarGrafoSemCiclo(){
+        Vertice a = new Vertice("a");
+        Vertice b = new Vertice("b");
         Vertice x = new Vertice("x");
         Vertice y = new Vertice("y");
+        Vertice z = new Vertice("z");
 
-        u.adjacentes.add(v);
-        u.adjacentes.add(y);
-        u.adjacentes.add(x);
+        a.adjacentes.add(b);
+        a.adjacentes.add(z);
 
-        v.adjacentes.add(u);
-        v.adjacentes.add(w);
+        b.adjacentes.add(x);
+        b.adjacentes.add(a);
 
-        w.adjacentes.add(v);
-        w.adjacentes.add(x);
+        x.adjacentes.add(b);
 
-        x.adjacentes.add(w);
-        x.adjacentes.add(y);
-        x.adjacentes.add(u);
+        y.adjacentes.add(z);
 
-        y.adjacentes.add(u);
-        y.adjacentes.add(x);
+        z.adjacentes.add(a);
+        z.adjacentes.add(y);
 
         List<Vertice> grafo = new ArrayList<>();
-        grafo.add(u);
-        grafo.add(v);
-        grafo.add(w);
+        grafo.add(a);
+        grafo.add(b);
         grafo.add(x);
         grafo.add(y);
+        grafo.add(z);
 
         return grafo;
     }
 
-   public static List<Vertice> gerarGrafoGLinha(){
-        Vertice u = new Vertice("u");
-        Vertice v = new Vertice("v");
-        Vertice w = new Vertice("w");
-        Vertice x = new Vertice("x");
-        Vertice y = new Vertice("y");
+   public static List<Vertice> gerarGrafoComCiclo(){
+       Vertice a = new Vertice("a");
+       Vertice b = new Vertice("b");
+       Vertice x = new Vertice("x");
+       Vertice y = new Vertice("y");
+       Vertice z = new Vertice("z");
 
-        u.adjacentes.add(w);
+       a.adjacentes.add(b);
+       a.adjacentes.add(z);
 
-        v.adjacentes.add(y);
-        v.adjacentes.add(x);
+       b.adjacentes.add(x);
+       b.adjacentes.add(a);
 
-        w.adjacentes.add(u);
-        w.adjacentes.add(y);
+       x.adjacentes.add(b);
+       x.adjacentes.add(y);
 
-        x.adjacentes.add(v);
+       y.adjacentes.add(z);
+       y.adjacentes.add(x);
 
-        y.adjacentes.add(w);
-        y.adjacentes.add(v);
+       z.adjacentes.add(a);
+       z.adjacentes.add(y);
 
-        List<Vertice> grafo = new ArrayList<>();
-        grafo.add(u);
-        grafo.add(v);
-        grafo.add(w);
-        grafo.add(x);
-        grafo.add(y);
+       List<Vertice> grafo = new ArrayList<>();
+       grafo.add(a);
+       grafo.add(b);
+       grafo.add(x);
+       grafo.add(y);
+       grafo.add(z);
 
         return grafo;
     }
