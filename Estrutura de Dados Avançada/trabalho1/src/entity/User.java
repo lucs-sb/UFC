@@ -11,6 +11,13 @@ public class User {
 
     public User(){}
 
+    public User(String name, long socialSecurity, String address, List<Long> cards) {
+        this.name = name;
+        this.socialSecurity = socialSecurity;
+        this.address = address;
+        this.cards = cards;
+    }
+
     public String getName() {
         return this.name;
     }

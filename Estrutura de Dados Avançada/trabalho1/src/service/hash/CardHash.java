@@ -42,13 +42,16 @@ public class CardHash extends HashTable {
             expandTable();
     }
 
-    public CreditCard getCreditCardByNumber(long number, User user){
+    public CreditCard getCreditCardByNumber(long number, User user, boolean isAdd){
         int index = hashing(number);
 
         while (list[index] != null && list[index].getNumber() != number)
             index = doubleHash(index);
 
-        return list[index] == null && !user.getCards().contains(number) ? null : list[index];
+        if (!isAdd)
+            return list[index] == null || !user.getCards().contains(number) ? null : list[index];
+        else
+            return list[index] == null ? null : list[index];
     }
 
     public CreditCard getCreditCardByNumber(long number){

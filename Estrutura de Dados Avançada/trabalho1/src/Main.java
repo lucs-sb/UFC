@@ -14,11 +14,38 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        UserHash userHashTable = new UserHash(77);
-        CardHash cardHashTable = new CardHash(77);
+        UserHash userHashTable = new UserHash(5);
+        CardHash cardHashTable = new CardHash(5);
         User user;
         Scanner s = new Scanner(System.in);
         int op;
+
+        List<Long> numbers = new ArrayList<>();
+        numbers.add(1234L);
+        User user1 = new User("Lucas", 52142384574L, "Centro", numbers);
+        List<Long> cpfs = new ArrayList<>();
+        cpfs.add(52142384574L);
+        CreditCard card1 = new CreditCard(1234L, "Lucas", "05/25", "Visa", cpfs, new Purchase("Roupa", 350, 52142384574L, null, null));
+        cardHashTable.addCreditCard(card1);
+        userHashTable.addUser(user1);
+
+        numbers = new ArrayList<>();
+        numbers.add(9874L);
+        User user2 = new User("Aguiar", 56895684521L, "Centro", numbers);
+        cpfs = new ArrayList<>();
+        cpfs.add(56895684521L);
+        CreditCard card2 = new CreditCard(9874L, "Aguiar", "05/25", "Visa", cpfs, new Purchase("Merenda", 50, 56895684521L, null, null));
+        cardHashTable.addCreditCard(card2);
+        userHashTable.addUser(user2);
+
+        numbers = new ArrayList<>();
+        numbers.add(5685L);
+        User user3 = new User("Vitim", 45212365287L, "Centro", numbers);
+        cpfs = new ArrayList<>();
+        cpfs.add(45212365287L);
+        CreditCard card3 = new CreditCard(5685L, "Vitim", "05/25", "Visa", cpfs, new Purchase("Mercado", 100, 45212365287L, null, null));
+        cardHashTable.addCreditCard(card3);
+        userHashTable.addUser(user3);
 
         do{
             System.out.println("\n\t\t\t\tGERENCIADOR DE CARTÕES\n");
@@ -136,7 +163,7 @@ public class Main {
                         System.out.print("\nINFORME O NÚMERO DO CARTÃO: ");
                         cardNumber = Long.parseLong(input.readLine());
 
-                        card = cardHash.getCreditCardByNumber(cardNumber, user);
+                        card = cardHash.getCreditCardByNumber(cardNumber, user, false);
 
                         if (card == null)
                             System.out.print("\nCARTÃO NÃO ENCONTRADO.\n");
@@ -160,7 +187,7 @@ public class Main {
                         System.out.print("\nINFORME O NÚMERO DO CARTÃO: ");
                         cardNumber = Long.parseLong(input.readLine());
 
-                        card = cardHash.getCreditCardByNumber(cardNumber, user);
+                        card = cardHash.getCreditCardByNumber(cardNumber, user, false);
 
                         if (card == null)
                             System.out.println("\nCARTÃO NÃO ENCONTRADO.");
@@ -180,10 +207,14 @@ public class Main {
                         System.out.print("\nINFORME O NÚMERO DO SEU CARTÃO: ");
                         cardNumber = Long.parseLong(input.readLine());
 
-                        CreditCard creditCard = cardHash.getCreditCardByNumber(cardNumber, user);
+                        CreditCard creditCard = cardHash.getCreditCardByNumber(cardNumber, user, true);
 
                         if (creditCard != null) {
-                            System.out.println("\nCARTÃO JÁ CADASTRADO.\n");
+                            if (user.getCards().contains(cardNumber))
+                                System.out.println("\nCARTÃO JÁ CADASTRADO.\n");
+                            else
+                                user.getCards().add(creditCard.getNumber());
+
                             break;
                         }
 

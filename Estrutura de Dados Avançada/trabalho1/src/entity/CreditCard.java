@@ -17,6 +17,15 @@ public class CreditCard {
         this.purchase = null;
     }
 
+    public CreditCard(long number, String cardHolder, String expirationDate, String flag, List<Long> socialSecurities, Purchase purchase) {
+        this.number = number;
+        this.cardHolder = cardHolder;
+        this.expirationDate = expirationDate;
+        this.flag = flag;
+        this.socialSecurities = socialSecurities;
+        this.purchase = purchase;
+    }
+
     public long getNumber() {
         return this.number;
     }
