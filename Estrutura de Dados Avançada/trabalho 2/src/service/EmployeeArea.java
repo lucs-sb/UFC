@@ -62,7 +62,7 @@ public class EmployeeArea {
             System.out.print("Fazer pagamento com cartão ou dinheiro ? ");
             String payment = in.readLine();
             System.out.print("\nPagamento realizado!\n");
-            box.leftistHeap.order.priority = kitchen.tail + 2;
+            box.leftistHeap.order.priority = kitchen.ordersPlaced++;
             SimpleHeap.add(kitchen, box.leftistHeap.order);
             box.leftistHeap = LeftistHeap.removal(box.leftistHeap);
             System.out.print("\nSeu pedido já foi para a cozinha!\n");
