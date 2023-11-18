@@ -16,7 +16,7 @@ public class File {
         Path file = Paths.get(filename);
         List<String> fileLines = Files.lines(file).toList();
 
-        for (int i = 2; i <= Integer.parseInt(fileLines.get(0)); i++){
+        for (int i = 2; i <= fileLines.size()-1; i++){
             String[] vector = fileLines.get(i).split(" ");
             Vertex v = Util.getVertex(graph, vector[0]);
             Vertex u = Util.getVertex(graph, vector[1]);
@@ -52,7 +52,7 @@ public class File {
                 }
                 for (String s : path)
                     printWriter.print(s + " -> ");
-                printWriter.print(x.name + x.d + "\n");
+                printWriter.print(x.name + " " + x.d + "\n");
             }
         }
 
