@@ -14,6 +14,17 @@ public class Util {
         return null;
     }
 
+    public static List<Vertex> getChildren(List<Vertex> graph, String name){
+        List<Vertex> children = new ArrayList<>();
+
+        for (Vertex u : graph){
+            if (u.ancestor != null && name.equals(u.ancestor.name))
+                children.add(u);
+        }
+
+        return children;
+    }
+
     public static void print(Vertex v, Vertex u){
         System.out.println("\nValor do menor caminho entre " + v.name + " e " + u.name + ": " + u.d);
 

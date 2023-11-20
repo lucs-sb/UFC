@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class File {
@@ -39,21 +38,11 @@ public class File {
     public static void writeFile(List<Vertex> graph, String filename) throws IOException {
         FileWriter fileWriter = new FileWriter(filename);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        List<String> path = new ArrayList<>();
 
-        for (Vertex x : graph) {
-            path.clear();
-            if (x.ancestor != null){
-                Vertex ancestor = x.ancestor;
-                path.add(0, ancestor.name);
-                while (ancestor.ancestor != null){
-                    ancestor = ancestor.ancestor;
-                    path.add(0, ancestor.name);
-                }
-                for (String s : path)
-                    printWriter.print(s + " -> ");
-                printWriter.print(x.name + " " + x.d + "\n");
-            }
+        for (Vertex u : graph) {
+            List<Vertex> children = Util.getChildren(graph, u.name);
+            for (Vertex v : children)
+                printWriter.println(u.name + " " + v.name + " " + v.d);
         }
 
         fileWriter.close();
