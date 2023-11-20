@@ -18,6 +18,10 @@ public class Util {
         System.out.println("\nValor do menor caminho entre " + v.name + " e " + u.name + ": " + u.d);
 
         List<String> path = new ArrayList<>();
+
+        if(u.ancestor == null)
+            return;
+
         Vertex ancestor = u.ancestor;
         path.add(0, ancestor.name);
         while (ancestor.ancestor != null){
