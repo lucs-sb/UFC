@@ -12,7 +12,7 @@ public class Main {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         List<Vertex> graph = new ArrayList<>();
 
-        File.readFile(graph, "C:/Users/joaom/Desktop/grafo.txt");
+        File.readFile(graph, "C:/Users/soare/OneDrive/Área de Trabalho/grafo.txt");
 
         Vertex v, u;
 
@@ -39,7 +39,7 @@ public class Main {
 
         Util.print(v, u);
 
-        File.writeFile(graph, "C:/Users/joaom/Desktop/caminhos minimos.txt");
+        File.writeFile(graph, "C:/Users/soare/OneDrive/Área de Trabalho/caminhos minimos.txt");
 
         bufferedReader.close();
     }
