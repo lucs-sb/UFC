@@ -14,11 +14,26 @@ public class Main {
 
         File.readFile(graph, "C:/Users/soare/OneDrive/Área de Trabalho/grafo.txt");
 
-        System.out.println("Digite o vertice inicial e final. ex: '0 5'");
-        String[] vertices = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+        Vertex v, u;
 
-        Vertex v = Util.getVertex(graph, vertices[0]);
-        Vertex u = Util.getVertex(graph, vertices[1]);
+        while(true) {
+            System.out.println("Digite o vertice inicial e final. ex: '0 5'");
+            String[] vertices = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+            if(vertices.length < 2) {
+                System.out.println("Digite novamente");
+                continue;
+            }
+
+            v = Util.getVertex(graph, vertices[0]);
+            u = Util.getVertex(graph, vertices[1]);
+
+            if(v == null || u == null) {
+                System.out.println("Vertice invalido, digite novamente");
+            }else {
+                break;
+            }
+        }
 
         DAG.dagShortestPaths(graph, graph.get(graph.indexOf(v)));
 
