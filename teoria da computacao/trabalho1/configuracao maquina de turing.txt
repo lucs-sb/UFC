@@ -1,0 +1,25 @@
+ALFABETO
+$, ,a,b,c,d
+ESTADO INICIAL
+q0
+ESTADOS FINAIS
+y,n
+DEMAIS ESTADOS
+q1,q2,q3,q4,q5,q6,q7
+FUNÇÕES DE TRANSIÇÃO
+q0, ,q1,>;q1, ,y, ;q1,b,n, ;q1,c,n, ;q1,d,q1,>;q1,a,q2,d;q2,d,q3,>;q3, ,n, ;q3,c,n, ;q3,d,q3,>;q3,a,q3,>;q3,b,q4,d;q4,d,q5,>;q5,b,q5,>;q5,d,q5,>;q5,a,n, ;q5, ,n, ;q5,c,q6,d;q6,d,q7,<;q7,a,q7,<;q7,b,q7,<;q7,c,q7,<;q7,d,q7,<;q7, ,q0, ;
+-------------------------------------------------------------------------------------------------
+ALFABETO
+$, ,a,b,c,d
+ESTADO INICIAL
+q0
+ESTADOS FINAIS
+y,n
+DEMAIS ESTADOS
+q1,q2,q3,q4,q5,q6,q7
+FUNÇÕES DE TRANSIÇÃO
+q0, ,q1,>;q1, ,y, ;q1,b,n, ;q1,c,n, ;q1,d,q1,>;q1,a,q2,d;q2,d,q3,>;q3, ,n, ;q3,c,n, ;q3,d,q3,>;q3,a,q3,>;q3,b,q4,d;q4,d,q5,>;q5,b,q5,>;q5,d,q5,>;q5,a,n, ;q5, ,n, ;q5,c,q6,d;q6,d,q7,<;q7,a,q7,<;q7,b,q7,<;q7,c,q7,<;q7,d,q7,<;q7, ,q0, ;
+-------------------------------------------------------------------------------------------------
+
+
+

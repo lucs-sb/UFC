@@ -56,7 +56,7 @@ public class TuringMachineService {
     }
 
     private static TuringMachine getConfigurationByFile() throws IOException {
-        Path path = Paths.get("C:/Users/soare/OneDrive/Área de Trabalho/configuracao maquina de turing.txt");
+        Path path = Paths.get("C:/Users/soare/OneDrive/Documentos/GitHub/UFC/teoria da computacao/trabalho1/configuracao maquina de turing.txt");
         List<String> linhasArquivo = Files.lines(path).toList();
         TuringMachine turingMachine = new TuringMachine();
         List<State> states = new ArrayList<>();
@@ -305,119 +305,5 @@ public class TuringMachineService {
                 return state;
 
         return null;
-    }
-
-    public static void nonDeterministicTuringMachineSimulator() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        int op;
-        TuringMachine turingMachine = getConfigurationByFile();
-        do{
-            System.out.println("\n\t\t\t\tSIMULADOR DA MÁQUINA DE TURING\n");
-            System.out.println("\t\t\t\t1  - CRIAR UMA NOVA CONFIGURAÇÃO\n\t\t\t\t2  - INICIAR\n\t\t\t\t3  - VER CONFIGURAÇÃO ATUAL\n\t\t\t\t4  - VER LOG DA ÚLTIMA EXECUÇÃO\n\t\t\t\t0  - SAIR");
-            System.out.print("\nINFORME SUA OPCAO: ");
-            op = scanner.nextInt();
-
-            switch(op) {
-                case 1:
-                    turingMachine = getConfigurationByFile();
-                    break;
-                case 2:
-                    System.out.print("\nINFORME A ENTRADA: ");
-                    String input = scanner.next();
-                    startNonDeterministicTuringMachine(turingMachine, "$ " + input + " ");
-                    break;
-                case 3:
-                    printConfiguration(turingMachine);
-                    break;
-                case 4:
-                    printLog(turingMachine.log);
-                    break;
-                case 0:
-                    System.out.println("\nENCERRANDO PROGRAMA");
-                    break;
-                default:
-                    System.out.println("\nOPCAO INCORRETA, TENTAR NOVAMENTE.");
-                    break;
-            }
-        }
-        while(op != 0);
-    }
-
-    private static void startNonDeterministicTuringMachine(TuringMachine turingMachine, String input){
-        if (turingMachine == null) {
-            System.out.println("\n\n\tMÁQUINA NÃO CONFIGURADA! APERTE 1 PARA CONFIGURAR.\n\n");
-            return;
-        }
-
-        for (char c : input.toCharArray()) {
-            boolean flag = true;
-            for (String x : turingMachine.alphabet)
-                if (c == x.charAt(0)) {
-                    flag = false;
-                }
-            if (flag) {
-                System.out.println("\n\n\tENTRADA NÃO CORRESPONDE COM O ALFABETO CONFIGURADO.\n\n");
-                return;
-            }
-        }
-
-        List<String> log = new ArrayList<>();
-        long transitionCounter = 0;
-        long maximumNumberOfTransitions = 100;
-
-        char[] tape = input.toCharArray();
-        int headPosition = 1;
-        State currentState = turingMachine.initialState;
-
-        String log1 = "\n\tTransição atual: " + transitionCounter + "; Estado atual: " + currentState.name + "; Estado atual da fita: " + Arrays.toString(tape);
-
-        log.add(log1);
-
-        while (!currentState.isFinal) {
-            for (Transition transition : turingMachine.transitions){
-                if (transition.origin.name.equals(currentState.name) && transition.originSymbol.charAt(0) == tape[headPosition]){
-
-                    currentState = transition.destination;
-
-                    if (currentState.isFinal)
-                        break;
-
-                    if (">".equals(transition.destinationSymbol))
-                        headPosition++;
-                    else if ("<".equals(transition.destinationSymbol))
-                        headPosition--;
-                    else
-                        tape[headPosition] = transition.destinationSymbol.charAt(0);
-
-                    String log2 = "\n\tTransição atual: " + transitionCounter + "; Estado atual: " + currentState.name + "; Estado atual da fita: " + Arrays.toString(tape);
-
-                    log.add(log2);
-
-                    break;
-                }
-            }
-
-            transitionCounter++;
-
-            if (transitionCounter == maximumNumberOfTransitions && !currentState.isFinal){
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("\n\tJÁ FORAM EXECUTADOS " + transitionCounter + " TRANSIÇÕES, DESEJA EXCUTAR MAIS " + maximumNumberOfTransitions + " ?");
-                System.out.print("\n\tDIGITE 1 PARA CONTINUAR E 0 PARA PARAR");
-                System.out.print("\n\tINFORME SUA OPCAO: ");
-                int choice = scanner.nextInt();
-                if (choice == 1)
-                    maximumNumberOfTransitions += maximumNumberOfTransitions;
-                else
-                    break;
-            }
-        }
-
-        String finish = "\n\tEstado que parou: " + currentState.name + "; Estado final da fita: " + Arrays.toString(tape);
-
-        log.add(finish);
-
-        turingMachine.log = log;
-
-        System.out.println(finish);
     }
 }
